@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://bjhfp6vcsilfx"]
+
+[ext_resource type="Shader" path="res://fire.gdshader" id="1_llsrk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mick5"]
+height = 1.5
+
+[sub_resource type="Gradient" id="Gradient_e1ht6"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_b8y4g"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_save2"]
+color_ramp = SubResource("Gradient_e1ht6")
+noise = SubResource("FastNoiseLite_b8y4g")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yq0wi"]
+render_priority = 0
+shader = ExtResource("1_llsrk")
+shader_parameter/root_color = Color(1, 0.74902, 0.301961, 1)
+shader_parameter/tip_color = Color(1, 0.03, 0.001, 1)
+shader_parameter/fire_alpha = 0.36
+shader_parameter/fire_speed = Vector2(0, 1)
+shader_parameter/fire_aperture = 0.365
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_save2")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("CapsuleMesh_mick5")
+surface_material_override/0 = SubResource("ShaderMaterial_yq0wi")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.56705)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
